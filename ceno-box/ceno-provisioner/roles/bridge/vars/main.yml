@@ -1,0 +1,4 @@
+---
+git_repo_url: https://github.com/equalitie/ceno.git
+git_clone_path: "/home/{{ bridgeuser }}/vc/git/ceno"
+bridge_path:  "/home/{{ bridgeuser }}/CENOBridge"
