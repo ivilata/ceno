@@ -17,3 +17,13 @@
   become: true
   become_user: "{{ bridgeuser }}"
   git: repo={{ git_repo_url }} dest={{ git_clone_path }} accept_hostkey=yes
+
+- name: link bridge source to final destination
+  become: true
+  become_user: "{{ bridgeuser }}"
+  file: name={{ bridge_path }} state=link src={{ git_clone_path }}/ceno-bridge
+
+- name: create protected bridge configuration directory
+  become: true
+  become_user: "{{ bridgeuser }}"
+  file: name={{ bridge_path }}/.CENO state=directory mode=0700
