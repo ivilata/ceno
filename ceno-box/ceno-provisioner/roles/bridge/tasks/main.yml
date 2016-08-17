@@ -1,0 +1,4 @@
+---
+- name: create bridge user
+  become: true
+  user: name={{ bridgeuser }}

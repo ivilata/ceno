@@ -1,0 +1,6 @@
+---
+- name: deploy CENO bridge
+  hosts: ceno_bridge_hosts
+  roles:
+    - role: bridge
+      bridgeuser: ceno
