@@ -23,7 +23,7 @@
 - name: link bridge source to final destination
   become: true
   become_user: "{{ bridgeuser }}"
-  file: name={{ bridge_path }} state=link src={{ git_clone_path }}/ceno-bridge
+  file: name={{ bridge_path }} state=link src={{ git_clone_path }}/ceno-box/ceno-bridge
 
 - name: create protected bridge configuration directory
   become: true
@@ -33,4 +33,4 @@
 - name: install NodeJS packages
   become: true
   become_user: "{{ bridgeuser }}"
-  npm: path={{ bridge_path }}
+  npm: path={{ bridge_path }}/bundle-server
