@@ -7,6 +7,7 @@
     - nodejs-legacy
     - tor
     - privoxy
+    - supervisor
 
 - name: create bridge user
   become: true
@@ -32,7 +33,7 @@
   become_user: "{{ bridgeuser }}"
   file: name={{ bridge_path }}/.CENO state=directory mode=0700
 
-- name: install NodeJS packages
+- name: install Bundle Server NodeJS packages
   become: true
   become_user: "{{ bridgeuser }}"
   npm: path={{ bridge_path }}/bundle-server
@@ -44,3 +45,8 @@
     regexp='^#+(\s*forward-socks5\s+/\s+127\.0\.0\.1:9050\s+\.\s*.*)'
     line='\1' backrefs=yes
   notify: restart Privoxy
+
+- name: run CENO services under Supervisor
+  become: true
+  template: src=supervisor-ceno.conf.j2 dest=/etc/supervisor/conf.d/ceno.conf
+  notify: restart Supervisor
