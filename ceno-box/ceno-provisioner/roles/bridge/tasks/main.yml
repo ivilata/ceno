@@ -5,6 +5,8 @@
     - git
     - npm
     - nodejs-legacy
+    - tor
+    - privoxy
 
 - name: create bridge user
   become: true
@@ -34,3 +36,11 @@
   become: true
   become_user: "{{ bridgeuser }}"
   npm: path={{ bridge_path }}/bundle-server
+
+- name: configure Privoxy to use Tor
+  become: true
+  lineinfile: >
+    dest=/etc/privoxy/config
+    regexp='^#+(\s*forward-socks5\s+/\s+127\.0\.0\.1:9050\s+\.\s*.*)'
+    line='\1' backrefs=yes
+  notify: restart Privoxy

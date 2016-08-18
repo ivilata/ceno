@@ -1,0 +1,4 @@
+---
+- name: restart Privoxy
+  service: name=privoxy state=restarted
+  become: True
