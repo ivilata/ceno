@@ -1,0 +1,11 @@
+- name: get NodeJS version
+  shell: nodejs -v | sed 's/^v\([0-9]*\)\..*/\1/'
+  register: nodejs_v_result
+  changed_when: false
+
+- set_fact:
+    nodejs_version: "{{ nodejs_v_result.stdout }}"
+    use_vendor_nodejs: "{{ nodejs_v_result.stdout|int < min_nodejs_version }}"
+
+- fail: 'msg="NodeJS major version is too old: {{ nodejs_version }}"'
+  when: nodejs_version|int < min_nodejs_version

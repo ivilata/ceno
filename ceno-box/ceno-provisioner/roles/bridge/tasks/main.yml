@@ -10,15 +10,8 @@
     - privoxy
     - supervisor
 
-- name: get NodeJS version
-  shell: nodejs -v | sed 's/^v\([0-9]*\)\..*/\1/'
-  register: nodejs_v_result
-  changed_when: false
-
-- set_fact: nodejs_version={{ nodejs_v_result.stdout }}
-
-- fail: 'msg="NodeJS major version is too old: {{ nodejs_version }}"'
-  when: nodejs_version|int < min_nodejs_version
+# Install vendor NodeJS when the system's is too old.
+- include: tasks/vendor-nodejs.yml
 
 - name: create bridge user
   become: true
