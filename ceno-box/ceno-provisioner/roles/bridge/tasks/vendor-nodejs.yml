@@ -3,9 +3,46 @@
   register: nodejs_v_result
   changed_when: false
 
-- set_fact:
-    nodejs_version: "{{ nodejs_v_result.stdout }}"
-    use_vendor_nodejs: "{{ nodejs_v_result.stdout|int < min_nodejs_version }}"
+- name: check vendor NodeJS APT key
+  command: apt-key list
+  register: aptkey_list_result
+  changed_when: false
 
-- fail: 'msg="NodeJS major version is too old: {{ nodejs_version }}"'
-  when: nodejs_version|int < min_nodejs_version
+- set_fact:
+    use_vendor_nodejs: "{{ nodejs_v_result.stdout|int < min_nodejs_version }}"
+    add_vendor_nodejs_key: "{{ '<gpg@nodesource.com>' not in aptkey_list_result.stdout }}"
+
+# From vendor NodeJS installation script at
+# <https://deb.nodesource.com/setup_4.x>.
+- name: get vendor NodeJS APT key
+  become: true
+  become_user: "{{ bridgeuser }}"
+  uri:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    dest: "{{ nodejs_vendor_repo_key }}"
+    creates: "{{ nodejs_vendor_repo_key }}"
+  when: use_vendor_nodejs
+
+- name: add vendor NodeJS APT key
+  become: true
+  command: "apt-key add {{ nodejs_vendor_repo_key }}"
+  when: use_vendor_nodejs and add_vendor_nodejs_key
+
+- name: install system packages for vendor NodeJS APT repo
+  become: true
+  apt: name={{ item }} update_cache=yes cache_valid_time=3600
+  with_items:
+    - apt-transport-https
+  when: use_vendor_nodejs
+
+- name: add vendor NodeJS APT repo
+  become: true
+  apt_repository: repo='deb https://deb.nodesource.com/node_{{ min_nodejs_version }}.x {{ ansible_lsb.codename }} main'
+  when: use_vendor_nodejs
+
+- name: install vendor NodeJS APT package
+  become: true
+  apt: name={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - nodejs
+  when: use_vendor_nodejs

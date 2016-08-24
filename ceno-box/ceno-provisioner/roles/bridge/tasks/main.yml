@@ -12,6 +12,9 @@
 
 # Install vendor NodeJS when the system's is too old.
 - include: tasks/vendor-nodejs.yml
+  vars:
+    min_nodejs_version: 4
+    nodejs_vendor_repo_key: "/home/{{ bridgeuser }}/nodesource.gpg.key"
 
 - name: create bridge user
   become: true
