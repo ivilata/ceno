@@ -1,4 +1,8 @@
 ---
+- name: create bridge user
+  become: true
+  user: name={{ bridgeuser }}
+
 - name: install required system packages
   become: true
   apt: name={{ item }} update_cache=yes cache_valid_time=3600
@@ -28,10 +32,6 @@
     - npm
     - nodejs-legacy
   when: which_node_result.rc != 0
-
-- name: create bridge user
-  become: true
-  user: name={{ bridgeuser }}
 
 - name: create Git repo directory
   become: true
