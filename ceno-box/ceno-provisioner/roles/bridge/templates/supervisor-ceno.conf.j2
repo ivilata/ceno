@@ -2,7 +2,7 @@
 programs=bundle-server
 
 [program:bundle-server]
-command=/usr/bin/node bundle-server.js
+command=/usr/bin/nodejs bundle-server.js
 directory={{ bridge_path }}/bundle-server
 user={{ bridgeuser }}
 environment=CENOLANG="en"
