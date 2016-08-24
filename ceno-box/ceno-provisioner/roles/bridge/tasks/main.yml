@@ -4,8 +4,7 @@
   apt: name={{ item }} update_cache=yes cache_valid_time=3600
   with_items:
     - git
-    - npm
-    - nodejs-legacy
+    - nodejs  # delay ``npm`` and ``nodejs-legacy`` to avoid conflicts with vendor package
     - tor
     - privoxy
     - supervisor
@@ -15,6 +14,20 @@
   vars:
     min_nodejs_version: 4
     nodejs_vendor_repo_key: "/home/{{ bridgeuser }}/nodesource.gpg.key"
+
+- name: check for NPM and NodeJS legacy binaries
+  command: which npm node  # already provided by vendor package
+  register: which_node_result
+  changed_when: false
+  failed_when: false
+
+- name: install pending NodeJS system packages
+  become: true
+  apt: name={{ item }} update_cache=yes cache_valid_time=3600
+  with_items:
+    - npm
+    - nodejs-legacy
+  when: which_node_result.rc != 0
 
 - name: create bridge user
   become: true
