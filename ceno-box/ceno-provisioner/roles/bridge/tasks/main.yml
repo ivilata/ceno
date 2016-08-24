@@ -11,6 +11,7 @@
     - nodejs  # delay ``npm`` and ``nodejs-legacy`` to avoid conflicts with vendor package
     - tor
     - privoxy
+    - default-jre-headless
     - supervisor
 
 # Install vendor NodeJS when the system's is too old.
@@ -65,6 +66,28 @@
     regexp='^#+(\s*forward-socks5\s+/\s+127\.0\.0\.1:9050\s+\.\s*.*)'
     line='\1' backrefs=yes
   notify: restart Privoxy
+
+- name: download Freenet installer
+  become: true
+  become_user: "{{ bridgeuser }}"
+  uri:
+    url: https://freenetproject.org/assets/jnlp/freenet_installer.jar
+    dest: "/home/{{ bridgeuser }}/freenet_installer.jar"
+    creates: "/home/{{ bridgeuser }}/freenet_installer.jar"
+
+- name: check Freenet installation
+  become: true
+  become_user: "{{ bridgeuser }}"
+  command: test -d /home/ceno/fred
+  register: test_fred_result
+  changed_when: false
+  failed_when: false
+
+- name: install Freenet
+  become: true
+  become_user: "{{ bridgeuser }}"
+  shell: "( sleep 2; echo /home/{{ bridgeuser }}/fred; sleep 1; echo 1 ) | java -jar freenet_installer.jar"
+  when: test_fred_result.rc != 0
 
 - name: run CENO services under Supervisor
   become: true
