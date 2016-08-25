@@ -67,27 +67,34 @@
     line='\1' backrefs=yes
   notify: restart Privoxy
 
-- name: download Freenet installer
+- name: create Freenet directory
+  become: true
+  become_user: "{{ bridgeuser }}"
+  file: name={{ freenet_path }} state=directory
+
+- name: download Freenet jar
   become: true
   become_user: "{{ bridgeuser }}"
   uri:
-    url: https://freenetproject.org/assets/jnlp/freenet_installer.jar
-    dest: "{{ bridge_home }}/freenet_installer.jar"
-    creates: "{{ bridge_home }}/freenet_installer.jar"
+    url: "{{ freenet_jar_url }}"
+    dest: "{{ freenet_path }}/{{ freenet_jar }}"
+    creates: "{{ freenet_path }}/{{ freenet_jar }}"
 
-- name: check Freenet installation
+- name: download Freenet ext jar
   become: true
   become_user: "{{ bridgeuser }}"
-  command: test -d /home/ceno/fred
-  register: test_fred_result
-  changed_when: false
-  failed_when: false
+  uri:
+    url: "{{ freenet_ext_jar_url }}"
+    dest: "{{ freenet_path }}/{{ freenet_ext_jar }}"
+    creates: "{{ freenet_path }}/{{ freenet_ext_jar }}"
 
-- name: install Freenet
+- name: download Bouncy Castle provider jar
   become: true
   become_user: "{{ bridgeuser }}"
-  shell: "( sleep 2; echo {{ bridge_home }}/fred; sleep 1; echo 1 ) | java -jar freenet_installer.jar"
-  when: test_fred_result.rc != 0
+  uri:
+    url: "{{ bcprov_jar_url }}"
+    dest: "{{ freenet_path }}/{{ bcprov_jar }}"
+    creates: "{{ freenet_path }}/{{ bcprov_jar }}"
 
 - name: run CENO services under Supervisor
   become: true
