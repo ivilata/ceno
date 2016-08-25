@@ -4,9 +4,11 @@ git_repo_url: https://github.com/equalitie/ceno.git
 git_clone_path: "{{ bridge_home }}/vc/git/ceno"
 bridge_path:  "{{ bridge_home }}/CENOBridge"
 freenet_path: "{{ bridge_home }}/freenet"
-freenet_jar: freenet-build01475.jar
+freenet_build: "01475"
+freenet_jar: freenet-build{{ freenet_build }}.jar
 freenet_jar_url: https://downloads.freenetproject.org/alpha/{{ freenet_jar }}
 freenet_ext_jar: freenet-ext.jar
 freenet_ext_jar_url: https://downloads.freenetproject.org/alpha/{{ freenet_ext_jar }}
-bcprov_jar: bcprov-jdk15on-155.jar
+bcprov_release: "155"
+bcprov_jar: bcprov-jdk15on-{{ bcprov_release }}.jar
 bcprov_jar_url: https://bouncycastle.org/download/{{ bcprov_jar }}
