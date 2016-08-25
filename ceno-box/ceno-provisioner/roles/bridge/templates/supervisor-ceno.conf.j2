@@ -1,8 +1,20 @@
 [group:ceno]
-programs=bundle-server
+programs=bundle-server,freenet
 
 [program:bundle-server]
 command=/usr/bin/nodejs bundle-server.js
 directory={{ bridge_path }}/bundle-server
 user={{ bridgeuser }}
 environment=CENOLANG="en"
+
+[program:freenet]
+# Options taken from Freenet's ``wrapper.conf``.
+command=/usr/bin/java
+ -Dnetworkaddress.cache.ttl=0
+ -Dnetworkaddress.cache.negative.ttl=0
+ -Djava.net.preferIPv4Stack=true
+ -Xms60m -Xmx512m
+ -cp {{ freenet_path}}/{{ bcprov_jar }}:{{ freenet_path}}/{{ freenet_ext_jar }}:{{ freenet_path}}/{{ freenet_jar }}
+ freenet.node.NodeStarter freenet.ini
+directory={{ bridge_path }}
+user={{ bridgeuser }}

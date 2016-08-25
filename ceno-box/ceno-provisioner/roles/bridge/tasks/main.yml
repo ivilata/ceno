@@ -79,6 +79,7 @@
     url: "{{ freenet_jar_url }}"
     dest: "{{ freenet_path }}/{{ freenet_jar }}"
     creates: "{{ freenet_path }}/{{ freenet_jar }}"
+  notify: restart Supervisor
 
 - name: download Freenet ext jar
   become: true
@@ -87,6 +88,7 @@
     url: "{{ freenet_ext_jar_url }}"
     dest: "{{ freenet_path }}/{{ freenet_ext_jar }}"
     creates: "{{ freenet_path }}/{{ freenet_ext_jar }}"
+  notify: restart Supervisor
 
 - name: download Bouncy Castle provider jar
   become: true
@@ -95,6 +97,7 @@
     url: "{{ bcprov_jar_url }}"
     dest: "{{ freenet_path }}/{{ bcprov_jar }}"
     creates: "{{ freenet_path }}/{{ bcprov_jar }}"
+  notify: restart Supervisor
 
 - name: run CENO services under Supervisor
   become: true
