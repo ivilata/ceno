@@ -93,6 +93,12 @@
     - "{{ bcprov_jar_url }}"
   notify: restart Supervisor
 
+- name: copy CENO Bridge Freenet plugin jar
+  become: true
+  become_user: "{{ bridgeuser }}"
+  copy: src={{local_bridge_jar_path}} dest={{ freenet_path }}
+  notify: restart Supervisor
+
 - name: run CENO services under Supervisor
   become: true
   template: src=supervisor-ceno.conf.j2 dest=/etc/supervisor/conf.d/ceno.conf
