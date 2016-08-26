@@ -14,7 +14,7 @@ command=/usr/bin/java
  -Dnetworkaddress.cache.negative.ttl=0
  -Djava.net.preferIPv4Stack=true
  -Xms60m -Xmx512m
- -cp {{ freenet_path}}/{{ bcprov_jar }}:{{ freenet_path}}/{{ freenet_ext_jar }}:{{ freenet_path}}/{{ freenet_jar }}
+ -cp {{ bcprov_jar }}:{{ freenet_ext_jar }}:{{ freenet_jar }}
  freenet.node.NodeStarter freenet.ini
-directory={{ bridge_path }}
+directory={{ freenet_path }}
 user={{ bridgeuser }}

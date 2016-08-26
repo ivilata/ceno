@@ -72,6 +72,14 @@
   become_user: "{{ bridgeuser }}"
   file: name={{ freenet_path }} state=directory
 
+- name: copy Freenet configuration from Git repo
+  become: true
+  become_user: "{{ bridgeuser }}"
+  copy: src={{ bridge_path}}/{{ item }} dest={{ freenet_path }} remote_src=yes
+  with_items:
+    - freenet.ini
+    - memory.autolimit
+
 - name: download Freenet jar
   become: true
   become_user: "{{ bridgeuser }}"
