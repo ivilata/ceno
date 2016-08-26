@@ -80,31 +80,17 @@
     - freenet.ini
     - memory.autolimit
 
-- name: download Freenet jar
+- name: download Freenet jars
   become: true
   become_user: "{{ bridgeuser }}"
   uri:
-    url: "{{ freenet_jar_url }}"
-    dest: "{{ freenet_path }}/{{ freenet_jar }}"
-    creates: "{{ freenet_path }}/{{ freenet_jar }}"
-  notify: restart Supervisor
-
-- name: download Freenet ext jar
-  become: true
-  become_user: "{{ bridgeuser }}"
-  uri:
-    url: "{{ freenet_ext_jar_url }}"
-    dest: "{{ freenet_path }}/{{ freenet_ext_jar }}"
-    creates: "{{ freenet_path }}/{{ freenet_ext_jar }}"
-  notify: restart Supervisor
-
-- name: download Bouncy Castle provider jar
-  become: true
-  become_user: "{{ bridgeuser }}"
-  uri:
-    url: "{{ bcprov_jar_url }}"
-    dest: "{{ freenet_path }}/{{ bcprov_jar }}"
-    creates: "{{ freenet_path }}/{{ bcprov_jar }}"
+    url: "{{ item }}"
+    dest: "{{ freenet_path }}/{{ item | basename }}"
+    creates: "{{ freenet_path }}/{{ item | basename }}"
+  with_items:
+    - "{{ freenet_jar_url }}"
+    - "{{ freenet_ext_jar_url }}"
+    - "{{ bcprov_jar_url }}"
   notify: restart Supervisor
 
 - name: run CENO services under Supervisor
