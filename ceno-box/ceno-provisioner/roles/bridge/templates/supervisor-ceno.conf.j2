@@ -5,7 +5,7 @@ programs=freenet,bundle-server,reader
 command=/usr/bin/nodejs bundle-server.js
 directory={{ bridge_path }}/bundle-server
 user={{ bridgeuser }}
-environment=CENOLANG="en"
+environment=CENOLANG="{{ bundler_lang }}"
 
 [program:freenet]
 # Options taken from Freenet's ``wrapper.conf``.
@@ -23,4 +23,4 @@ user={{ bridgeuser }}
 command={{ reader_path }}
 directory={{ reader_path | dirname }}
 user={{ bridgeuser }}
-environment=CENOLANG="en-us"
+environment=CENOLANG="{{ reader_lang }}"

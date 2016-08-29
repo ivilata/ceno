@@ -1,4 +1,6 @@
 ---
+bundler_lang: en
+reader_lang: en-us
 bridge_home: "/home/{{ bridgeuser }}"
 git_repo_url: https://github.com/equalitie/ceno.git
 git_clone_path: "{{ bridge_home }}/vc/git/ceno"
