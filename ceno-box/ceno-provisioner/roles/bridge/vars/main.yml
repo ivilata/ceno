@@ -1,20 +1,31 @@
 ---
+# Override these to change CENO language.
 bundler_lang: en
 reader_lang: en-us
-bridge_home: "/home/{{ bridgeuser }}"
-git_repo_url: https://github.com/equalitie/ceno.git
-git_clone_path: "{{ bridge_home }}/vc/git/ceno"
-bridge_path: "{{ bridge_home }}/CENOBridge"
-bundler_path: "{{ bridge_path }}/bundle-server/bundle-server.js"
-freenet_path: "{{ bridge_home }}/freenet"
+# Override these to change Freenet and Bouncy Castle provider versions.
 freenet_build: "01475"
+bcprov_release: "154"
+# Override these to point to your own built versions.
+local_bridge_jar_path: ../ceno-freenet/dist/CENOBridge.jar
+local_reader_path: ../ceno-bridge/rss-reader/reader
+
+# There is usually no need to override the variables below.
+
+bridge_home: "/home/{{ bridgeuser }}"
+
+git_clone_path: "{{ bridge_home }}/vc/git/ceno"
+git_repo_url: https://github.com/equalitie/ceno.git
+
+bridge_path: "{{ bridge_home }}/CENOBridge"
+
+bundler_path: "{{ bridge_path }}/bundle-server/bundle-server.js"
+
+freenet_path: "{{ bridge_home }}/freenet"
 freenet_jar: freenet-build{{ freenet_build }}.jar
 freenet_jar_url: https://downloads.freenetproject.org/alpha/{{ freenet_jar }}
 freenet_ext_jar: freenet-ext.jar
 freenet_ext_jar_url: https://downloads.freenetproject.org/alpha/{{ freenet_ext_jar }}
-bcprov_release: "154"
 bcprov_jar: bcprov-jdk15on-{{ bcprov_release }}.jar
 bcprov_jar_url: https://bouncycastle.org/download/{{ bcprov_jar }}
-local_bridge_jar_path: ../ceno-freenet/dist/CENOBridge.jar
-local_reader_path: ../ceno-bridge/rss-reader/reader
+
 reader_path: "{{ bridge_path }}/rss-reader/reader"
