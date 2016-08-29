@@ -96,13 +96,13 @@
 - name: copy CENO Bridge Freenet plugin jar
   become: true
   become_user: "{{ bridgeuser }}"
-  copy: src={{local_bridge_jar_path}} dest={{ freenet_path }}
+  copy: src={{ local_bridge_jar_path }} dest={{ freenet_path }}
   notify: restart Supervisor
 
 - name: copy CENO Reader binary
   become: true
   become_user: "{{ bridgeuser }}"
-  copy: src={{local_reader_path}} dest={{ reader_path }} mode=a+rx
+  copy: src={{ local_reader_path }} dest={{ reader_path }} mode=a+rx
   notify: restart Supervisor
 
 - name: run CENO services under Supervisor
