@@ -4,7 +4,8 @@ reader_lang: en-us
 bridge_home: "/home/{{ bridgeuser }}"
 git_repo_url: https://github.com/equalitie/ceno.git
 git_clone_path: "{{ bridge_home }}/vc/git/ceno"
-bridge_path:  "{{ bridge_home }}/CENOBridge"
+bridge_path: "{{ bridge_home }}/CENOBridge"
+bundler_path: "{{ bridge_path }}/bundle-server/bundle-server.js"
 freenet_path: "{{ bridge_home }}/freenet"
 freenet_build: "01475"
 freenet_jar: freenet-build{{ freenet_build }}.jar

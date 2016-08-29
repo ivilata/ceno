@@ -14,8 +14,8 @@ directory={{ freenet_path }}
 user={{ bridgeuser }}
 
 [program:bundle-server]
-command=/usr/bin/nodejs bundle-server.js
-directory={{ bridge_path }}/bundle-server
+command=/usr/bin/nodejs {{ bundler_path | basename }}
+directory={{ bundler_path | dirname }}
 user={{ bridgeuser }}
 environment=CENOLANG="{{ bundler_lang }}"
 

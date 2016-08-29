@@ -57,7 +57,7 @@
 - name: install Bundle Server NodeJS packages
   become: true
   become_user: "{{ bridgeuser }}"
-  npm: path={{ bridge_path }}/bundle-server
+  npm: path={{ bundler_path | dirname }}
 
 - name: configure Privoxy to use Tor
   become: true
