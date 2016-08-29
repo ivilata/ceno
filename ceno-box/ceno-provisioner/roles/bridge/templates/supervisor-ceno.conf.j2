@@ -1,5 +1,5 @@
 [group:ceno]
-programs=bundle-server,freenet
+programs=freenet,bundle-server,reader
 
 [program:bundle-server]
 command=/usr/bin/nodejs bundle-server.js
@@ -18,3 +18,9 @@ command=/usr/bin/java
  freenet.node.NodeStarter freenet.ini
 directory={{ freenet_path }}
 user={{ bridgeuser }}
+
+[program:reader]
+command={{ reader_path }}
+directory={{ reader_path | dirname }}
+user={{ bridgeuser }}
+environment=CENOLANG="en-us"

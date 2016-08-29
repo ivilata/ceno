@@ -13,3 +13,5 @@ bcprov_release: "154"
 bcprov_jar: bcprov-jdk15on-{{ bcprov_release }}.jar
 bcprov_jar_url: https://bouncycastle.org/download/{{ bcprov_jar }}
 local_bridge_jar_path: ../ceno-freenet/dist/CENOBridge.jar
+local_reader_path: ../ceno-bridge/rss-reader/reader
+reader_path: "{{ bridge_path }}/rss-reader/reader"

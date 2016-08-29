@@ -99,6 +99,12 @@
   copy: src={{local_bridge_jar_path}} dest={{ freenet_path }}
   notify: restart Supervisor
 
+- name: copy CENO Reader binary
+  become: true
+  become_user: "{{ bridgeuser }}"
+  copy: src={{local_reader_path}} dest={{ reader_path }} mode=a+rx
+  notify: restart Supervisor
+
 - name: run CENO services under Supervisor
   become: true
   template: src=supervisor-ceno.conf.j2 dest=/etc/supervisor/conf.d/ceno.conf
