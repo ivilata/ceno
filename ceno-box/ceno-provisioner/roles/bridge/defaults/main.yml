@@ -5,10 +5,11 @@ reader_lang: en-us
 # Override these to change Freenet and Bouncy Castle provider versions.
 freenet_build: "01475"
 bcprov_release: "154"
-# Override these to point to your own built versions.
+# Override these to point to your own versions.
 local_bridge_jar_path: ../ceno-freenet/dist/CENOBridge.jar
 local_reader_path: ../ceno-bridge/rss-reader/reader
-# Override this if you provide a ``seednodes.fref`` file listing Freenet trusted friends,
-# or download it from <https://downloads.freenetproject.org/alpha/opennet/seednodes.fref>
-# (but just for testing purposes).
+# Override these to provide your own ``seednodes.fref`` file listing Freenet
+# trusted friends, or if you downloaded it for testing purposes from
+# <https://downloads.freenetproject.org/alpha/opennet/seednodes.fref>.
 use_seed_nodes: false
+local_seed_nodes_path: seednodes.fref

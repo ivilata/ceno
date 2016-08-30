@@ -83,7 +83,7 @@
 - name: copy Freenet seed nodes file
   become: true
   become_user: "{{ bridgeuser }}"
-  copy: src=seednodes.fref dest={{ freenet_path }}
+  copy: src={{ local_seed_nodes_path }} dest={{ freenet_path }}
   when: use_seed_nodes
   notify: restart Supervisor
 
