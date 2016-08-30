@@ -1,4 +1,6 @@
 ---
+# Override this to change the user the Bridge will run as.
+bridgeuser: ceno
 # Override these to change CENO language.
 bundler_lang: en
 reader_lang: en-us

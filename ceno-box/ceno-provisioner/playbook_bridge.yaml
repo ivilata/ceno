@@ -3,4 +3,5 @@
   hosts: ceno_bridge_hosts
   roles:
     - role: bridge
-      bridgeuser: ceno
+    # Please check ``roles/bridge/defaults/main.yml``
+    # for customizable role variables.
