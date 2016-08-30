@@ -80,6 +80,13 @@
     - freenet.ini
     - memory.autolimit
 
+- name: copy Freenet seed nodes file
+  become: true
+  become_user: "{{ bridgeuser }}"
+  copy: src=seednodes.fref dest={{ freenet_path }}
+  when: use_seed_nodes
+  notify: restart Supervisor
+
 - name: download Freenet jars
   become: true
   become_user: "{{ bridgeuser }}"
