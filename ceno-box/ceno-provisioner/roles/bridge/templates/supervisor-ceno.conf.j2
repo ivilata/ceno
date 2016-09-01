@@ -12,15 +12,21 @@ command=/usr/bin/java
  freenet.node.NodeStarter freenet.ini
 directory={{ freenet_path }}
 user={{ bridgeuser }}
+stdout_logfile=syslog
+stderr_logfile=syslog
 
 [program:bundle-server]
 command=/usr/bin/nodejs {{ bundler_path | basename }}
 directory={{ bundler_path | dirname }}
 user={{ bridgeuser }}
 environment=CENOLANG="{{ bundler_lang }}"
+stdout_logfile=syslog
+stderr_logfile=syslog
 
 [program:reader]
 command={{ reader_path }}
 directory={{ reader_path | dirname }}
 user={{ bridgeuser }}
 environment=CENOLANG="{{ reader_lang }}"
+stdout_logfile=syslog
+stderr_logfile=syslog
