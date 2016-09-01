@@ -1,5 +1,5 @@
 [group:ceno]
-programs=freenet,bundle-server,reader
+programs=freenet,bundle-server,rss-reader
 
 [program:freenet]
 # Options taken from Freenet's ``wrapper.conf``.
@@ -23,7 +23,7 @@ environment=CENOLANG="{{ bundler_lang }}"
 stdout_logfile=syslog
 stderr_logfile=syslog
 
-[program:reader]
+[program:rss-reader]
 command={{ reader_path }}
 directory={{ reader_path | dirname }}
 user={{ bridgeuser }}
