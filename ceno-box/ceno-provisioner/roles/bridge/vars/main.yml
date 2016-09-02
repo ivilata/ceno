@@ -15,5 +15,6 @@ freenet_ext_jar: freenet-ext.jar
 freenet_ext_jar_url: https://downloads.freenetproject.org/alpha/{{ freenet_ext_jar }}
 bcprov_jar: bcprov-jdk15on-{{ bcprov_release }}.jar
 bcprov_jar_url: https://bouncycastle.org/download/{{ bcprov_jar }}
+seed_nodes_url: https://downloads.freenetproject.org/alpha/opennet/seednodes.fref
 
 reader_path: "{{ bridge_path }}/rss-reader/reader"
