@@ -1,4 +1,6 @@
 ---
+# The easiest way to run this playbook is to use ``root`` as the remote user,
+# so it can create new users and switch to them at will.
 - name: deploy CENO bridge
   hosts: ceno_bridge_hosts
   roles:
